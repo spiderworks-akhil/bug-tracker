@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PageController as Page;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [Page::class , 'home']);
+
+Route::group([ 'namespace' => 'Admin', 'middleware' => ['web']], function () {
+    Route::group(['middleware' => 'admin'], function () {
+
+        Route::get('dashboard', [Page::class , 'dashboard']);
+
+        Route::get('sites', [Page::class , 'sites']);
+        Route::get('site/bug-report', [Page::class , 'site_bug_report']);
+
+        Route::post('bug-status', [Page::class , 'set_bug_status']);
+
+    });
 });
+
+
