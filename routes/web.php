@@ -13,7 +13,8 @@ use App\Http\Controllers\PageController as Page;
 |
 */
 
-Route::get('/', [Page::class , 'home']);
+Route::get('/', [Page::class , 'login']);
+Route::post('login', [Page::class , 'attempt_login']);
 
 Route::group([ 'namespace' => 'Admin', 'middleware' => ['web']], function () {
     Route::group(['middleware' => 'admin'], function () {

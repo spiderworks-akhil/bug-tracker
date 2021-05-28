@@ -7,6 +7,7 @@ use App\Models\Bug;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class BugController extends Controller
 {
@@ -29,7 +30,7 @@ class BugController extends Controller
             $arr = explode('@',$email);
             $user->name = $arr[0];
             $user->email = $email;
-            $user->password = $arr[0].'-2215';
+            $user->password = Hash::make($arr[0].'-2215');
             $user->save();
         }
 
