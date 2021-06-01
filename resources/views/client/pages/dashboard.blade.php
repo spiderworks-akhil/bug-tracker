@@ -10,7 +10,7 @@
                 <th>url</th>
                 <th>name</th>
                 <th>error code</th>
-                <th>message</th>
+                {{--<th>message</th>--}}
                 </thead>
                 <tbody>
                     @foreach($bugs as $obj)
@@ -20,7 +20,7 @@
                             <td>{{$obj->url}}</td>
                             <td>{{$obj->name}}</td>
                             <td>{{$obj->error_code}}</td>
-                            <td>{{$obj->message}}</td>
+                            {{--<td>{{$obj->message}}</td>--}}
                         </tr>
                     @endforeach
                 </tbody>
