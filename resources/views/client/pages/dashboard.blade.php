@@ -4,30 +4,40 @@
     <div class="container-fluid">
         <div class="row">
 
-            <table class="table table-striped">
-                <thead>
-                <th>id</th>
-                <th>url</th>
-                <th>name</th>
-                <th>error code</th>
-                {{--<th>message</th>--}}
-                </thead>
-                <tbody>
+            <div class="first-window">
+                <ul class="bugs-list">
                     @foreach($bugs as $obj)
-
-                        <tr>
-                            <td>{{$obj->id}}</td>
-                            <td>{{$obj->url}}</td>
-                            <td>{{$obj->name}}</td>
-                            <td>{{$obj->error_code}}</td>
-                            {{--<td>{{$obj->message}}</td>--}}
-                        </tr>
+                        <li class="bug-row" data-id="{{encrypt($obj->id)}}">
+                            <h5>{{$obj->name}}</h5>
+                            <span class="badge {{$obj->error_code_class()}}" >{{$obj->error_code}}</span>
+                            <small><i>{{$obj->url}}</i></small>
+                        </li>
                     @endforeach
-                </tbody>
-            </table>
-
-
+                </ul>
+            </div>
+            <div class="second-window" id="bug-window">
+            </div>
 
         </div>
     </div>
+@endsection
+
+@section('bottom')
+
+    <script>
+        $(document).ready(function () {
+
+            $('.bug-row').on('click', function () {
+                let dom = $(this);
+                let id  = $(this).data('id');
+                $.get('{{route('get.bug')}}',{id:id}).done(function (data) {
+                    $('#bug-window').html(data.html);
+                    $('.bugs-list li').removeClass("active");
+                    dom.addClass("active");
+                })
+            });
+
+        });
+    </script>
+
 @endsection
